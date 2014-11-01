@@ -1,3 +1,3 @@
 lesson 0 
 =============
-(Untitled.gif)
+!![Video Walkthrough](Untitled.gif)
