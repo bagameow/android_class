@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TipCalculator</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="stringDefaultAmount">0.0</string>
+    <string name="stringBtn1">10%</string>
+    <string name="stringBtn2">15%</string>
+    <string name="stringBtn3">20%</string>
+    <string name="tvDefault">click tip percent button</string>
+
+</resources>
