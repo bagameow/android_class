@@ -1,5 +1,12 @@
 package com.y.instagramviewer;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -8,10 +15,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 public class PhotosActivity extends Activity {
 	private static String CLIENT_ID = "8b438327d1c544aaa9022564ff21dcc9";
+	private List<InstagramPhoto> photos;
+	private InstagramPhotosAdapter aPhotos;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +32,37 @@ public class PhotosActivity extends Activity {
 
 
     private void fetchPopularPhotos() {
+    	photos = new ArrayList<InstagramPhoto>();
+    	aPhotos = new InstagramPhotosAdapter(this, photos);
+    	ListView lvPhotos = (ListView)findViewById(R.id.lvPhotos);
+    	lvPhotos.setAdapter(aPhotos);
     	String url = "https://api.instagram.com/v1/media/popular?client_id=" + CLIENT_ID;
 
-    	Log.i("INFO", "going to request");
     	AsyncHttpClient client = new AsyncHttpClient();
     	client.get(url, new JsonHttpResponseHandler(){
     		@Override
     		public void onSuccess(int statusCode, org.apache.http.Header[] headers, org.json.JSONObject response) {
     			Log.i("INFO", response.toString());
+    			
+    			aPhotos.clear();
+    			try {
+    				JSONArray photosJson = response.getJSONArray("data");
+    				for (int i=0; i < photosJson.length(); i++) {
+    					JSONObject photoJson = photosJson.getJSONObject(i);
+    					InstagramPhoto photo = new InstagramPhoto();
+    					photo.username = photoJson.getJSONObject("user").getString("username");
+    					photo.caption = photoJson.getJSONObject("caption").getString("text");
+    					photo.imageUrl = photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
+    					photo.imageHeight = photoJson.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
+    					photo.likesCount = photoJson.getJSONObject("likes").getInt("count");
+    					photos.add(photo);
+    					Log.i("INFO", photo.toString());
+    				}
+    			} catch (JSONException e ) {
+    				e.printStackTrace();
+    			}
+    			aPhotos.notifyDataSetChanged();
+    			
     		};
     		
     		@Override
