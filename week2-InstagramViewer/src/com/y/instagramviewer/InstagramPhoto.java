@@ -7,7 +7,5 @@ public class InstagramPhoto {
 	public int imageHeight;
 	public int likesCount;
 	
-	public String toString() {
-		return imageUrl;
-	}
+	
 }

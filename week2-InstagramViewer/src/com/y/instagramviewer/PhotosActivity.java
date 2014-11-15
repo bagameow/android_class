@@ -44,14 +44,16 @@ public class PhotosActivity extends Activity {
     		public void onSuccess(int statusCode, org.apache.http.Header[] headers, org.json.JSONObject response) {
     			Log.i("INFO", response.toString());
     			
-    			aPhotos.clear();
+    			photos.clear();
     			try {
     				JSONArray photosJson = response.getJSONArray("data");
     				for (int i=0; i < photosJson.length(); i++) {
     					JSONObject photoJson = photosJson.getJSONObject(i);
     					InstagramPhoto photo = new InstagramPhoto();
     					photo.username = photoJson.getJSONObject("user").getString("username");
-    					photo.caption = photoJson.getJSONObject("caption").getString("text");
+    					if (photoJson.getJSONObject("caption") != null) {
+    						photo.caption = photoJson.getJSONObject("caption").getString("text");
+    					}
     					photo.imageUrl = photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
     					photo.imageHeight = photoJson.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
     					photo.likesCount = photoJson.getJSONObject("likes").getInt("count");
