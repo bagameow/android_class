@@ -1,14 +1,17 @@
 package com.y.gridimagesearch.activities;
 
+import com.squareup.picasso.Picasso;
 import com.y.gridimagesearch.R;
 import com.y.gridimagesearch.R.id;
 import com.y.gridimagesearch.R.layout;
 import com.y.gridimagesearch.R.menu;
+import com.y.gridimagesearch.models.ImageResult;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 public class ImageDisplayActivity extends Activity {
 
@@ -16,6 +19,10 @@ public class ImageDisplayActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image_display);
+		String url = getIntent().getStringExtra("url");
+		ImageView ivImageResult = (ImageView)findViewById(R.id.ivImageResult);
+		Picasso.with(this).load(url).into(ivImageResult);
+		
 	}
 
 	@Override

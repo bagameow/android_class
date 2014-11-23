@@ -27,6 +27,10 @@ public class ImageResult {
 		for(int i = 0; i < array.length(); i++) {
 			try {
 				imageResults.add(i, new ImageResult(array.getJSONObject(i)));
+//				if (i == 7) {
+//					imageResults.add(i+1, new ImageResult(array.getJSONObject(i)));
+//					
+//				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

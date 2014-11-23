@@ -5,9 +5,12 @@
     tools:context="com.y.gridimagesearch.activities.ImageDisplayActivity" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/ivImageResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="600dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"

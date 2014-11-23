@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.y.gridimagesearch.EndlessScrollListener;
 import com.y.gridimagesearch.R;
 import com.y.gridimagesearch.R.id;
 import com.y.gridimagesearch.R.layout;
@@ -18,11 +19,14 @@ import com.y.gridimagesearch.adapters.ImageResultsAdapter;
 import com.y.gridimagesearch.models.ImageResult;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
 
@@ -41,11 +45,54 @@ public class MainActivity extends Activity {
         imageResults = new ArrayList<ImageResult>();
         aImageResults = new ImageResultsAdapter(this, imageResults);
         gvResults.setAdapter(aImageResults);
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+	            customLoadMoreDataFromApi(page); 
+			}
+		});
     }
+
+	protected void customLoadMoreDataFromApi(int page) {
+		Log.d("DEBUG", "page = " + page);
+		
+		String query = etQuery.getText().toString();
+    	String url = "https://ajax.googleapis.com/ajax/services/search/images?q=" + query + "&v=1.0&rsz=8&start=" + page * 8;
+    	AsyncHttpClient client = new AsyncHttpClient();
+    	client.get(url, new JsonHttpResponseHandler() {
+    		@Override
+    		public void onSuccess(int statusCode, Header[] headers,
+    				JSONObject response) {
+    			//Log.d("INFO", response.toString());
+    			JSONArray imageResultsJson = null;
+    			try {
+					imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");
+					//imageResults.clear();
+					aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJson));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+    			System.out.println("");
+    		}
+    	});
+		
+		
+	}
 
 	private void setupViews() {
 		etQuery = (EditText)findViewById(R.id.etQuery);
 		gvResults = (GridView) findViewById(R.id.gvResults);
+		gvResults.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(MainActivity.this, ImageDisplayActivity.class);
+				ImageResult result = imageResults.get(position);
+				intent.putExtra("url", result.fullUrl);
+				startActivity(intent);
+			}
+		});
 	}
     
 
