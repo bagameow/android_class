@@ -39,6 +39,9 @@ public class MainActivity extends Activity {
 	private List<ImageResult> imageResults;
 	private ImageResultsAdapter aImageResults;
 	private String cSizeChozen;
+	private String cColorChozen;
+	private String cTypeChozen;
+	private String cSiteChozen;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +59,17 @@ public class MainActivity extends Activity {
 		});
         
         cSizeChozen = getIntent().getStringExtra("size");
-        Toast.makeText(this, cSizeChozen, Toast.LENGTH_SHORT).show();
-        
+        cColorChozen = getIntent().getStringExtra("color");
+        cTypeChozen = getIntent().getStringExtra("type");
+        cSiteChozen = getIntent().getStringExtra("site");
     }
 
 	protected void customLoadMoreDataFromApi(int page) {
-		Log.d("DEBUG", "page = " + page);
 		
 		String query = etQuery.getText().toString();
-    	String url = "https://ajax.googleapis.com/ajax/services/search/images?q=" + query + "&v=1.0&rsz=8&start=" + page * 8;
+		String attr = composeUrlAttribute();
+		Log.d("debug", "url attr = " + attr);
+    	String url = "https://ajax.googleapis.com/ajax/services/search/images?q=" + query + "&v=1.0&rsz=8&start=" + page * 8 + attr;
     	AsyncHttpClient client = new AsyncHttpClient();
     	client.get(url, new JsonHttpResponseHandler() {
     		@Override
@@ -79,11 +84,27 @@ public class MainActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-    			System.out.println("");
     		}
     	});
 		
 		
+	}
+	
+	private String composeUrlAttribute() {
+		StringBuffer sb = new StringBuffer();
+		if (cSizeChozen != null && cSizeChozen.length() > 0) {
+			sb.append("&imgsz=" + cSizeChozen);
+		}
+		if (cColorChozen != null && cColorChozen.length() > 0) {
+			sb.append("&imgcolor=" + cColorChozen);
+		}
+		if (cTypeChozen != null && cTypeChozen.length() > 0) {
+			sb.append("&imgtype=" + cTypeChozen);
+		}
+		if (cSiteChozen != null && cSiteChozen.length() > 0) {
+			sb.append("&as_sitesearch=" + cSiteChozen);
+		}
+		return sb.toString();
 	}
 
 	private void setupViews() {
@@ -118,7 +139,7 @@ public class MainActivity extends Activity {
     
     public void onImageSearch(View v) {
     	String query = etQuery.getText().toString();
-    	String url = "https://ajax.googleapis.com/ajax/services/search/images?q=" + query + "&v=1.0&rsz=8";
+    	String url = "https://ajax.googleapis.com/ajax/services/search/images?q=" + query + "&v=1.0&rsz=8" + composeUrlAttribute();
     	AsyncHttpClient client = new AsyncHttpClient();
     	client.get(url, new JsonHttpResponseHandler() {
     		@Override
@@ -133,7 +154,6 @@ public class MainActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-    			System.out.println("");
     		}
     	});
     		
