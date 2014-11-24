@@ -27,8 +27,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -36,7 +38,8 @@ public class MainActivity extends Activity {
 	private GridView gvResults;
 	private List<ImageResult> imageResults;
 	private ImageResultsAdapter aImageResults;
-
+	private String cSizeChozen;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,10 @@ public class MainActivity extends Activity {
 	            customLoadMoreDataFromApi(page); 
 			}
 		});
+        
+        cSizeChozen = getIntent().getStringExtra("size");
+        Toast.makeText(this, cSizeChozen, Toast.LENGTH_SHORT).show();
+        
     }
 
 	protected void customLoadMoreDataFromApi(int page) {
@@ -95,6 +102,12 @@ public class MainActivity extends Activity {
 		});
 	}
     
+	
+	public void onSettingAction(MenuItem mi) {
+		Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+		startActivity(intent);
+	}
+	
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

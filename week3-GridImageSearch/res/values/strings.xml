@@ -8,5 +8,12 @@
     <string name="search_label">search</string>
     <string name="image_title_label">Image Title</string>
     <string name="title_activity_image_display">Full Image</string>
+    <string name="title_activity_setting">Settings</string>
+    <string name="setting_caption_text">Advanced setting options</string>
+    <string name="size_label">Image Size</string>
+    <string name="color_label">Color Filter</string>
+    <string name="image_type_label">Image Type</string>
+    <string name="site_label">Site Filter</string>
+    <string name="save_btn_text">Save</string>
 
 </resources>

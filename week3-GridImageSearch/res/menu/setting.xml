@@ -1,14 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.y.gridimagesearch.MainActivity" >
+    tools:context="com.y.gridimagesearch.SettingActivity" >
 
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_my_icon2"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:onClick="onSettingAction"
-        
+        android:showAsAction="never"
         android:title="@string/action_settings"/>
-    
+
 </menu>

@@ -25,12 +25,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.y.gridimagesearch.activities.ImageDisplayActivity"
+            android:name=".activities.ImageDisplayActivity"
             android:label="@string/title_activity_image_display"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.y.gridimagesearch.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.y.gridimagesearch.activities.SettingActivity"
+            android:label="@string/title_activity_setting" >
         </activity>
     </application>
 
