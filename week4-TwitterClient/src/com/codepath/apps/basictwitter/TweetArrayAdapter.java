@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
+	
+	protected String nextMaxId = null;
 
 	public TweetArrayAdapter(Context context, List<Tweet> tweets) {
 		super(context,0, tweets);
@@ -26,6 +28,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		 // Get the data item for this position
+		Log.d("debug", String.valueOf(position));
 	       Tweet tweet = getItem(position);    
 	       // Check if an existing view is being reused, otherwise inflate the view
 	       View v;
@@ -35,6 +38,19 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 	    	   v = convertView;
 	       }
 	       // Lookup view for data population
+	       //Log.d("debug", String.valueOf(tweet.getUid()));
+	       if (nextMaxId == null) {
+	    	   Log.d("debug", "original=" + nextMaxId + ", new one=" + tweet.getUid());
+	    	   nextMaxId = String.valueOf(tweet.getUid());
+	       } else  {
+	    	   long o = Long.valueOf(nextMaxId);
+	    	   long n = Long.valueOf(tweet.getUid());
+	    	   if (n < o) {
+	    		   Log.d("debug", "original=" + nextMaxId + ", new one=" + tweet.getUid());
+	    		   nextMaxId = String.valueOf(tweet.getUid());
+	    	   }
+	       }
+	       
 	       ImageView ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImage);
 	       TextView tvUserName = (TextView) v.findViewById(R.id.tvUserName);
 	       TextView tvBody = (TextView) v.findViewById(R.id.tvBody);

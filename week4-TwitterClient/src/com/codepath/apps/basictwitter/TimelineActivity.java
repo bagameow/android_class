@@ -32,10 +32,22 @@ public class TimelineActivity extends Activity {
 		lvTweets = (ListView)findViewById(R.id.lvTweets);
 		aTweets = new TweetArrayAdapter(this,  tweets);
 		lvTweets.setAdapter(aTweets);
-		populateTimeline();
+		lvTweets.setOnScrollListener(new EndlessScrollListener() {
+	        @Override
+	        public void onLoadMore(int page, int totalItemsCount) {
+	            // Triggered only when new data needs to be appended to the list
+	            // Add whatever code is needed to append new items to your AdapterView
+	            customLoadMoreDataFromApi(aTweets); 
+	        }
+	        });
+		populateTimeline(aTweets);
 	}
 	
-	public void populateTimeline() {
+	protected void customLoadMoreDataFromApi(ArrayAdapter<Tweet> adapter) {
+		populateTimeline(adapter);
+	}
+
+	public void populateTimeline(ArrayAdapter<Tweet> adpater) {
 		client.getHomeTimeline(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(int arg0, JSONArray jsonArray) {
@@ -47,6 +59,6 @@ public class TimelineActivity extends Activity {
 				Log.d("debug",arg0.toString());
 				Log.d("debug",arg1.toString());
 			}
-		});
+		}, ((TweetArrayAdapter)adpater).nextMaxId);
 	}
 }
