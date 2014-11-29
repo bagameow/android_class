@@ -9,6 +9,7 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,10 +42,24 @@ public class TimelineActivity extends Activity {
 	        }
 	        });
 		populateTimeline(aTweets);
+		
+
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.compose, menu);
+		return true;
 	}
 	
 	protected void customLoadMoreDataFromApi(ArrayAdapter<Tweet> adapter) {
 		populateTimeline(adapter);
+	}
+	
+	public void onComposeAction(MenuItem menu) {
+		Intent i = new Intent(this,ComposeActivity.class);
+		startActivity(i);
 	}
 
 	public void populateTimeline(ArrayAdapter<Tweet> adpater) {
