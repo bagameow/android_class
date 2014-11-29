@@ -30,7 +30,7 @@ public class TimelineActivity extends Activity {
 		client = TwitterApplication.getRestClient();
 		tweets = new ArrayList<Tweet>();
 		lvTweets = (ListView)findViewById(R.id.lvTweets);
-		aTweets = new ArrayAdapter<Tweet>(this, android.R.layout.simple_list_item_1, tweets);
+		aTweets = new TweetArrayAdapter(this,  tweets);
 		lvTweets.setAdapter(aTweets);
 		populateTimeline();
 	}
