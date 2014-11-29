@@ -13,6 +13,9 @@
 
     <TextView
         android:id="@+id/tvUserName"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:ems="6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,8 +26,17 @@
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxLines="1"
         android:layout_below="@+id/tvUserName"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:text="This is tweet body" />
+
+    <TextView
+        android:id="@+id/tvRelativeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/dft_relative_label" />
 
 </RelativeLayout>
