@@ -31,7 +31,7 @@ public class TweetsListFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragments_tweets_list, container, true);
+		View v = inflater.inflate(R.layout.fragments_tweets_list, container, false);
 		lvTweets = (ListView)v.findViewById(R.id.lvTweets);
 		lvTweets.setAdapter(aTweets);
 		lvTweets.setOnScrollListener(new EndlessScrollListener() {
