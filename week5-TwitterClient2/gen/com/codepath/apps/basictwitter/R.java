@@ -33,16 +33,23 @@ public final class R {
         public static final int ic_profile=0x7f020004;
     }
     public static final class id {
-        public static final int action_profile=0x7f080009;
-        public static final int action_settings=0x7f080008;
+        public static final int action_profile=0x7f080010;
+        public static final int action_settings=0x7f08000f;
         public static final int btnSend=0x7f080001;
         public static final int etMessage=0x7f080000;
-        public static final int flContainer=0x7f080002;
-        public static final int ivProfileImage=0x7f080004;
-        public static final int lvTweets=0x7f080003;
-        public static final int tvBody=0x7f080006;
-        public static final int tvRelativeTime=0x7f080007;
-        public static final int tvUserName=0x7f080005;
+        public static final int flContainer=0x7f08000a;
+        public static final int fragmentUserTimeline=0x7f080009;
+        public static final int ivProfileImage=0x7f080003;
+        public static final int llCount=0x7f080006;
+        public static final int lvTweets=0x7f08000b;
+        public static final int rlHeader=0x7f080002;
+        public static final int tvBody=0x7f08000d;
+        public static final int tvFollowers=0x7f080007;
+        public static final int tvFollowing=0x7f080008;
+        public static final int tvName=0x7f080004;
+        public static final int tvRelativeTime=0x7f08000e;
+        public static final int tvTagline=0x7f080005;
+        public static final int tvUserName=0x7f08000c;
     }
     public static final class layout {
         public static final int activity_compose=0x7f030000;
